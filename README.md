@@ -44,7 +44,7 @@ url: https://gossip-hub.onrender.com/
 For Software:
 
 # Screenshots (Add at least 3)
-<img width="1900" height="auto" src="scrnsht2.png" />
+<img width="1900" height="auto" src="scrnsht2" />
 *Add caption explaining what this shows*
 
 ![Screenshot2](Add screenshot 2 here with proper name)
