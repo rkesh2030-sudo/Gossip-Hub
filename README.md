@@ -26,8 +26,7 @@ By creating a platform for broadcasting private chats, GossipHub removes all the
 For Software:
 - HTML,CSS,JS,Python 
 - Flask
-- [Libraries used]
-- [Tools used]
+- Flask_SocketIO(WebSocket)
 
 For Hardware:
 - [List main components]
@@ -40,7 +39,7 @@ For Software:
 [commands]
 
 # Run
-[commands]
+url: https://gossip-hub.onrender.com/
 
 ### Project Documentation
 For Software:
