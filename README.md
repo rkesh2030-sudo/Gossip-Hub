@@ -47,7 +47,7 @@ For Software:
 <img width="1900" height="auto" src="scrnsht2" />
 *Add caption explaining what this shows*
 
-![Screenshot2](Add screenshot 2 here with proper name)
+<img width="1900" height="auto" src="scrnsht.png">
 *Add caption explaining what this shows*
 
 ![Screenshot3](Add screenshot 3 here with proper name)
