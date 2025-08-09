@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Broadcast Chat</title>
+    <!-- Tailwind CSS for modern, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        /* Custom scrollbar for the chat messages */
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        .chat-messages::-webkit-scrollbar-track {
+            background: #e5e7eb;
+            border-radius: 10px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #9ca3af;
+            border-radius: 10px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <div class="bg-white rounded-xl shadow-2xl overflow-hidden w-full max-w-2xl flex flex-col h-[80vh]">
+        
+        <!-- Chat Header -->
+        <div class="p-4 bg-indigo-600 text-white shadow-lg">
+            <h1 class="text-2xl font-bold text-center">Anonymous Broadcast Chat</h1>
+            <p class="text-sm text-center opacity-80 mt-1">Chat privately and anonymously with everyone.</p>
+        </div>
+
+        <!-- Chat Messages Container -->
+        <div id="messages" class="flex-grow p-6 overflow-y-auto chat-messages space-y-4">
+            <!-- Messages will be injected here by JavaScript -->
+        </div>
+
+        <!-- Chat Input Form -->
+        <div class="p-4 bg-gray-100 border-t border-gray-200">
+            <div id="connection-status" class="text-center text-sm mb-2 text-gray-500 hidden">
+                Connecting...
+            </div>
+            <form id="chat-form" class="flex space-x-2">
+                <input 
+                    type="text" 
+                    id="message-input" 
+                    placeholder="Type your message..."
+                    class="flex-grow p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                    autocomplete="off"
+                >
+                <button 
+                    type="submit" 
+                    class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                    Send
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Socket.IO Client Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io();
+            const form = document.getElementById('chat-form');
+            const input = document.getElementById('message-input');
+            const messages = document.getElementById('messages');
+            const statusDiv = document.getElementById('connection-status');
+
+            // Function to create a new message element
+            function createMessageElement(content, isSystem = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('p-4', 'rounded-xl', 'break-words');
+                if (isSystem) {
+                    messageDiv.classList.add('bg-gray-200', 'text-gray-600', 'text-sm', 'text-center');
+                } else {
+                    messageDiv.classList.add('bg-indigo-100', 'text-gray-800');
+                }
+                messageDiv.innerHTML = content;
+                messages.appendChild(messageDiv);
+                messages.scrollTop = messages.scrollHeight; // Auto-scroll to the latest message
+            }
+
+            // Connection status updates
+            socket.on('connect', () => {
+                statusDiv.classList.add('hidden');
+                console.log('Connected to the server!');
+            });
+
+            socket.on('disconnect', () => {
+                statusDiv.classList.remove('hidden');
+                statusDiv.textContent = 'Disconnected from the server. Attempting to reconnect...';
+                console.log('Disconnected from the server.');
+            });
+
+            // Handle incoming messages
+            socket.on('message', (data) => {
+                const content = `<strong>${data.sender}:</strong> ${data.msg}`;
+                createMessageElement(content);
+            });
+
+            // Handle system status messages
+            socket.on('status', (data) => {
+                createMessageElement(data.msg, true);
+            });
+
+            // Handle form submission
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                if (input.value) {
+                    // Emit the message to the server
+                    socket.emit('message', { 'msg': input.value });
+                    // Clear the input field
+                    input.value = '';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
