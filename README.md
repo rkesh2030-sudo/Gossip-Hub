@@ -49,8 +49,7 @@ Screenshot 1
 
 <img width="1900" height="auto" src="scrnsht.png">
 Screenshot after more entries
-
-<img width="1900" height=="auto" src="scrnsht1">
+<img width="1900" height="auto" src="srcnsht1">
 Screenshot 3
 
 # Diagrams
