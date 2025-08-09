@@ -29,14 +29,13 @@ For Software:
 - Flask_SocketIO(WebSocket)
 
 For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+- Laptop
+- Ethernet Cable
 
 ### Implementation
 For Software:
 # Installation
-[commands]
+Install Browser
 
 # Run
 url: https://gossip-hub.onrender.com/
