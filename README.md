@@ -45,13 +45,13 @@ For Software:
 
 # Screenshots (Add at least 3)
 <img width="1900" height="auto" src="scrnsht2" />
-*Add caption explaining what this shows*
+Screenshot 1
 
 <img width="1900" height="auto" src="scrnsht.png">
-*Add caption explaining what this shows*
+Screenshot after more entries
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+<img width="1900" height=="auto" src="scrnsht1">
+Screenshot 3
 
 # Diagrams
 ![Workflow](Add your workflow/architecture diagram here)
